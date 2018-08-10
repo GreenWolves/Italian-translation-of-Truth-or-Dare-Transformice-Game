@@ -1,4 +1,4 @@
-# Italian-translation-of-Truth-or-Dare-Transformice-Game
+# Italian translation of Truth or Dare Transformice Game
 ## English
 To load the script you need to do /lua and paste the script contained in script.lua.
 ## Italian
