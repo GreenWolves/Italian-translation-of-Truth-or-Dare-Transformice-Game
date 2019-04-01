@@ -1,4 +1,4 @@
-admin="Themiachale#0000"
+admin= {["Themiachale#0000"]=true, ["Venceslai#0000"]=true, ["Gismina#0000"]=true, ["Skiinovecent#0000"]=true, ["Themiachale2#7887"]=true, ["Sabrygame#2987"]=true}
 
 
 
@@ -28,7 +28,7 @@ skip=false
 
 truth={}--you can follow the format 'truth[number]="question"' 
 truth[1]="Chi ti piace su Transformice?"
-truth[2]="Qual'è il tuo cibo preferito?"
+truth[2]="Qual è il tuo cibo preferito?"
 truth[3]="Qual è il tuo più grande sogno?"
 truth[4]="A che altri giochi giochi oltre a Transformice?"
 truth[5]="Come ti descriveresti?"
@@ -74,7 +74,7 @@ print(numplayers)
 end
 
 function eventChatCommand(name,command)
-if command=="s" then
+if command=="s" and admin[name] then
 tfm.exec.setShaman(name)		
 elseif command=="join" and p[name].spectator==true then
 tfm.exec.respawnPlayer(name)
@@ -82,12 +82,14 @@ tfm.exec.movePlayer(name,400,320,false,0,0,false)
 numplayers=numplayers+1
 players[numplayers]=name
 p[name].spectator=false
-elseif command=="skip" and name==admin then
+elseif command=="skip" and admin[name] then
 timestamp=os.time()
 skip=true
 end
 end
 
+tfm.exec.setNameColor(admin, 0x009DFF)
+tfm.exec.setUIMapName("Obbligo o Verità")
 function eventLoop(time,remaining)
 if timestamp < os.time()-10000 and begin==false then
 timestamp=os.time()
@@ -309,5 +311,16 @@ end
 function eventPlayerDied(name)
 tfm.exec.respawnPlayer(name)
 end
+
+changelog = "<p align='center'><font size='26'> Obbligo o Verità </font></p><br /><br />"
+changelog = changelog .. "• Se siete entrati in ritardo, basta fare !join per partecipare.<br />"
+changelog = changelog .. "• Gli admin della stanza possono skippare il turno facendo !skip.<br />"
+changelog = changelog .. "<br />"
+changelog = changelog .. "• Gli admin della stanza sono:<br />"
+changelog = changelog .. "<br />"
+changelog = changelog .. "  Themiachale    Venceslai    Sabrygame     Gismina     Skiinovecent <br />"
+changelog = changelog .. " <br />"
+ 
+ui.addPopup(0, 0, changelog, nil, 200, 100, 400, true)
 
 -- Credits to Mousetat.
